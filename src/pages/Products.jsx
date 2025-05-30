@@ -5,11 +5,19 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    fetch('/products.json')
-      .then(res => res.json())
-      .then(data => setProductos(data))
-      .catch(err => console.error('Error al cargar productos:', err));
-  }, []);
+  fetch('/products.json')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(data => setProductos(data))
+    .catch(err => {
+      console.error('Error al cargar productos:', err);
+      alert('No se pudieron cargar los productos. Inténtalo más tarde.');
+    });
+}, []);
 
   return (
     <div className="container mt-5">
