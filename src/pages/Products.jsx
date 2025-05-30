@@ -4,18 +4,23 @@ import ProductCard from '../components/ProductCard';
 const Products = () => {
   const [productos, setProductos] = useState([]);
 
-  useEffect(() => {
-  fetch('/products.json')
+ useEffect(() => {
+    fetch('/products.json?nocache=' + new Date().getTime())
     .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.json();
+      console.log('Status:', res.status);
+      return res.text();
     })
-    .then(data => setProductos(data))
+    .then(text => {
+      try {
+        const data = JSON.parse(text);
+        setProductos(data);
+      } catch (e) {
+        console.error('No es un JSON válido:', text);
+        alert('Hubo un error al cargar los productos.');
+      }
+    })
     .catch(err => {
       console.error('Error al cargar productos:', err);
-      alert('No se pudieron cargar los productos. Inténtalo más tarde.');
     });
 }, []);
 
