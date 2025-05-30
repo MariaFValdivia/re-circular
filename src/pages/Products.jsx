@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
+import productosData from '../data/productos.json';
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
 
-useEffect(() => {
-fetch('/productos.json')
-  .then(response => response.json())
-  .then(data => setProducts(data))
-  .catch(error => console.error('Error al cargar los productos:', error));
-    })
-    .then(data => {
-      console.log('Datos cargados:', data); 
-      setProductos(data);
-    })
-    .catch(err => {
-      console.error('Error al cargar productos:', err);
-      alert('Hubo un error al cargar los productos.');
-    });
-}, []);
+  useEffect(() => {
+    setProductos(productosData);
+  }, []);
 
   return (
     <div className="container mt-5">
