@@ -4,23 +4,23 @@ import ProductCard from '../components/ProductCard';
 const Products = () => {
   const [productos, setProductos] = useState([]);
 
-  useEffect(() => {
-    fetch('/productos.json?nocache=' + new Date().getTime())
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Datos cargados:', data);
-        setProductos(data);
-      })
-      .catch((err) => {
-        console.error('Error al cargar productos:', err);
-        alert('Hubo un error al cargar los productos.');
-      });
-  }, []);
+ useEffect(() => {
+  fetch(import.meta.env.BASE_URL + 'productos.json?' + new Date().getTime())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log('Datos cargados:', data);
+      setProductos(data);
+    })
+    .catch((err) => {
+      console.error('Error al cargar productos:', err);
+      alert('Hubo un error al cargar los productos.');
+    });
+}, []);
 
   return (
     <div className="container mt-5">
