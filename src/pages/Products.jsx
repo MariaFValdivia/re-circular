@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import productosData from '../data/productos.json';
+import productosData from '../public/productos.json';
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
