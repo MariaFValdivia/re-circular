@@ -5,23 +5,10 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
 
  useEffect(() => {
-    fetch('/products.json?nocache=' + new Date().getTime())
-    .then(res => {
-      console.log('Status:', res.status);
-      return res.text();
-    })
-    .then(text => {
-      try {
-        const data = JSON.parse(text);
-        setProductos(data);
-      } catch (e) {
-        console.error('No es un JSON válido:', text);
-        alert('Hubo un error al cargar los productos.');
-      }
-    })
-    .catch(err => {
-      console.error('Error al cargar productos:', err);
-    });
+  fetch('/products.json')
+    .then(res => res.json())
+    .then(data => setProductos(data))
+    .catch(err => console.error('Error al cargar productos:', err));
 }, []);
 
   return (
