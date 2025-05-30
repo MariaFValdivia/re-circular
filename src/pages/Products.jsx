@@ -5,12 +5,10 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
 
 useEffect(() => {
-  fetch('/products.json')
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.json();
+fetch('/products.json')
+  .then(response => response.json())
+  .then(data => setProducts(data))
+  .catch(error => console.error('Error al cargar los productos:', error));
     })
     .then(data => {
       console.log('Datos cargados:', data); // 👈 Añade esto para debug
